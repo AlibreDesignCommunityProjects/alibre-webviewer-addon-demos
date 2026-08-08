@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leg btm</title>
+<style>
+html,body{margin:0;height:100%;overflow:hidden;background:#e8e4d8;font-family:Segoe UI,Arial,sans-serif;}
+model-viewer{width:100%;height:100%;display:block;background:#e8e4d8;}
+#label{position:fixed;left:12px;bottom:10px;color:#cfd3da;font-size:12px;opacity:.75;user-select:none;}
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+} }
+</script>
+<script type="module" src="https://unpkg.com/@google/model-viewer@4.0.0/dist/model-viewer.min.js"></script>
+</head>
+<body>
+<script id="model-data" type="application/octet-stream">IyBGaWxlIHByb2R1Y2VkIGJ5IFRlY2hTb2Z0M0QgSE9PUFMgRXhjaGFuZ2UgdjI2LjEuMQ0KDQptdGxsaWIgZXhwb3J0LURFMjc5MUZFLTY0M0MtNDUxQS1CQjA0LUMzNUFCQTVGMTc4My5tdGwNCg0KIyAyOCB2ZXJ0ZXggcG9zaXRpb25zDQp2IC0xMi42OTk5OTk4IDQ0LjQ1MDAwMDggMzIzLjg0OTk3Ng0KdiAtMTIuNjk5OTk5OCA1Ny4xNTAwMDE1IDMyMy44NDk5NzYNCnYgMTIuNjk5OTk5OCA1Ny4xNTAwMDE1IDMyMy44NDk5NzYNCnYgMTIuNjk5OTk5OCA0NC40NTAwMDA4IDMyMy44NDk5NzYNCnYgMTIuNjk5OTk5OCA1Ny4xNTAwMDE1IDI2MC4zNTAwMDYNCnYgMTIuNjk5OTk5OCA0NC40NTAwMDA4IDI2MC4zNTAwMDYNCnYgLTEyLjY5OTk5OTggNTcuMTUwMDAxNSAyNjAuMzUwMDA2DQp2IC0xMi42OTk5OTk4IDQ0LjQ1MDAwMDggMjYwLjM1MDAwNg0KdiAtMTIuNjk5OTk5OCA0NC40NTAwMDA4IC0yNjAuMzUwMDA2DQp2IC0xMi42OTk5OTk4IDU3LjE1MDAwMTUgLTI2MC4zNTAwMDYNCnYgMTIuNjk5OTk5OCA1Ny4xNTAwMDE1IC0yNjAuMzUwMDA2DQp2IDEyLjY5OTk5OTggNDQuNDUwMDAwOCAtMjYwLjM1MDAwNg0KdiAxMi42OTk5OTk4IDU3LjE1MDAwMTUgLTMyMy44NDk5NzYNCnYgMTIuNjk5OTk5OCA0NC40NTAwMDA4IC0zMjMuODQ5OTc2DQp2IC0xMi42OTk5OTk4IDU3LjE1MDAwMTUgLTMyMy44NDk5NzYNCnYgLTEyLjY5OTk5OTggNDQuNDUwMDAwOCAtMzIzLjg0OTk3Ng0KdiAtMzguMDk5OTk4NSAyNS4zOTk5OTk2IDM4MQ0KdiAzOC4wOTk5OTg1IDI1LjM5OTk5OTYgMzgxDQp2IDM4LjA5OTk5ODUgNTcuMTUwMDAxNSAzNjIuNjY5MTI4DQp2IC0zOC4wOTk5OTg1IDU3LjE1MDAwMTUgMzYyLjY2OTEyOA0KdiAtMzguMDk5OTk4NSA1Ny4xNTAwMDE1IC0zNjIuNjY5MTI4DQp2IC0zOC4wOTk5OTg1IDI1LjM5OTk5OTYgLTM4MQ0KdiAtMzguMDk5OTk4NSAxOS4wNDk5OTkyIDM4MQ0KdiAtMzguMDk5OTk4NSAxOS4wNDk5OTkyIC0zODENCnYgMzguMDk5OTk4NSA1Ny4xNTAwMDE1IC0zNjIuNjY5MTI4DQp2IDM4LjA5OTk5ODUgMjUuMzk5OTk5NiAtMzgxDQp2IDM4LjA5OTk5ODUgMTkuMDQ5OTk5MiAtMzgxDQp2IDM4LjA5OTk5ODUgMTkuMDQ5OTk5MiAzODENCg0KIyAwIFVWIGNvb3JkaW5hdGVzDQoNCiMgMTQgdmVydGV4IG5vcm1hbHMNCnZuIC0wIC0wIC0xMA0Kdm4gLTEwIC0wIC0xLjU3MzU0NDQ2ZS0xNA0Kdm4gMCAwIDEwDQp2biAxMCAwIDANCnZuIC0yLjA5ODcyNzQzZS0zMCAxMCAtNi41NDA3Mjk2OGUtMzANCnZuIC0xMCAwIDEuNTczNTQ0NDZlLTE0DQp2biAtMi4wOTg3Mjc0M2UtMzAgMTAgNi41NDA3Mjk2OGUtMzANCnZuIDAgNSA4LjY2MDI1MzUyDQp2biAtMTAgMCAwDQp2biAwIDEwIDANCnZuIDAgNSAtOC42NjAyNTM1Mg0Kdm4gLTMuMjQ0NDA5NTVlLTMwIDEuMDUxMTg4NjllLTI4IC0xMA0Kdm4gMCAtMTAgMA0Kdm4gMy4yNDQ0MDk1NWUtMzAgLTEuMDUxMTg4NjllLTI4IDEwDQoNCiMgTWVzaCAnTGVnIGJ0bScgd2l0aCA1MiBmYWNlcw0KZyBMZWcgYnRtDQp1c2VtdGwgTWF0ZXJpYWxfMA0KZiAgMS8vMSAyLy8xIDMvLzENCmYgIDMvLzEgNC8vMSAxLy8xDQpmICA0Ly8yIDMvLzIgNS8vMg0KZiAgNS8vMiA2Ly8yIDQvLzINCmYgIDYvLzMgNS8vMyA3Ly8zDQpmICA3Ly8zIDgvLzMgNi8vMw0KZiAgOC8vNCA3Ly80IDIvLzQNCmYgIDIvLzQgMS8vNCA4Ly80DQpmICA2Ly81IDgvLzUgNC8vNQ0KZiAgMS8vNSA0Ly81IDgvLzUNCmYgIDkvLzEgMTAvLzEgMTEvLzENCmYgIDExLy8xIDEyLy8xIDkvLzENCmYgIDEyLy82IDExLy82IDEzLy82DQpmICAxMy8vNiAxNC8vNiAxMi8vNg0KZiAgMTQvLzMgMTMvLzMgMTUvLzMNCmYgIDE1Ly8zIDE2Ly8zIDE0Ly8zDQpmICAxNi8vNCAxNS8vNCAxMC8vNA0KZiAgMTAvLzQgOS8vNCAxNi8vNA0KZiAgMTQvLzcgMTYvLzcgOS8vNw0KZiAgOS8vNyAxMi8vNyAxNC8vNw0KZiAgMTcvLzggMTgvLzggMTkvLzgNCmYgIDE5Ly84IDIwLy84IDE3Ly84DQpmICAyMC8vOSAyMS8vOSAxNy8vOQ0KZiAgMTcvLzkgMjEvLzkgMjIvLzkNCmYgIDIyLy85IDIzLy85IDE3Ly85DQpmICAyMy8vOSAyMi8vOSAyNC8vOQ0KZiAgMjUvLzEwIDEzLy8xMCAxMS8vMTANCmYgIDEzLy8xMCAyNS8vMTAgMjEvLzEwDQpmICA3Ly8xMCAxMS8vMTAgMTAvLzEwDQpmICAyNS8vMTAgMTEvLzEwIDUvLzEwDQpmICAxOS8vMTAgNS8vMTAgMy8vMTANCmYgIDUvLzEwIDE5Ly8xMCAyNS8vMTANCmYgIDE5Ly8xMCAzLy8xMCAyLy8xMA0KZiAgMTUvLzEwIDIxLy8xMCAxMC8vMTANCmYgIDIxLy8xMCAxNS8vMTAgMTMvLzEwDQpmICAxMC8vMTAgMjEvLzEwIDcvLzEwDQpmICA3Ly8xMCAyMC8vMTAgMi8vMTANCmYgIDIwLy8xMCA3Ly8xMCAyMS8vMTANCmYgIDIvLzEwIDIwLy8xMCAxOS8vMTANCmYgIDcvLzEwIDUvLzEwIDExLy8xMA0KZiAgMjEvLzExIDI1Ly8xMSAyNi8vMTENCmYgIDI2Ly8xMSAyMi8vMTEgMjEvLzExDQpmICAyNi8vMTIgMjQvLzEyIDIyLy8xMg0KZiAgMjQvLzEyIDI2Ly8xMiAyNy8vMTINCmYgIDI3Ly80IDI2Ly80IDI4Ly80DQpmICAyOC8vNCAyNi8vNCAxOC8vNA0KZiAgMTgvLzQgMjUvLzQgMTkvLzQNCmYgIDI1Ly80IDE4Ly80IDI2Ly80DQpmICAyNC8vMTMgMjcvLzEzIDI4Ly8xMw0KZiAgMjgvLzEzIDIzLy8xMyAyNC8vMTMNCmYgIDE3Ly8xNCAyMy8vMTQgMTgvLzE0DQpmICAyOC8vMTQgMTgvLzE0IDIzLy8xNA0KDQo=</script>
+<model-viewer id="mv" camera-controls touch-action="pan-y"  shadow-intensity="1" exposure="1" alt="Leg btm"></model-viewer>
+<div id="label">Leg btm</div>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFExporter } from 'three/addons/exporters/GLTFExporter.js';
+import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+window.__toGlb = async function() {
+  const b64 = document.getElementById('model-data').textContent.trim();
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  let object;
+  const text = new TextDecoder().decode(bytes);
+  object = new OBJLoader().parse(text);
+  const exporter = new GLTFExporter();
+  const glb = await new Promise((res, rej) => exporter.parse(object, res, rej, { binary: true }));
+  return new Uint8Array(glb);
+};
+</script>
+
+<script type="module">
+const glb = await window.__toGlb();
+const blob = new Blob([glb], { type: 'model/gltf-binary' });
+document.getElementById('mv').src = URL.createObjectURL(blob);
+</script>
+</body>
+</html>
