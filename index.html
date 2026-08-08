@@ -100,6 +100,17 @@
     height: 100%;
     border: 0;
   }
+  .frame-wrap .placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
   .controls {
     padding: 10px 14px 14px;
     display: flex;
@@ -180,6 +191,39 @@
 
   const grid = document.getElementById("grid");
 
+  // Each card's iframe holds a live WebGL context (Three.js and/or Babylon.js).
+  // Browsers cap total concurrent WebGL contexts (commonly ~16), so keeping every
+  // card's iframe loaded at once eventually forces the browser to silently evict
+  // the oldest contexts, leaving earlier viewers blank. Instead, only load a
+  // card's iframe while it's near the viewport, and unload it (freeing its
+  // WebGL context) once it scrolls back out.
+  function loadFrame(wrap) {
+    if (wrap.dataset.loaded === "1") return;
+    const file = wrap.dataset.file;
+    const iframe = document.createElement("iframe");
+    iframe.src = file;
+    iframe.title = file;
+    wrap.innerHTML = "";
+    wrap.appendChild(iframe);
+    wrap.dataset.loaded = "1";
+  }
+
+  function unloadFrame(wrap) {
+    if (wrap.dataset.loaded !== "1") return;
+    wrap.innerHTML = '<div class="placeholder">Scrolled out of view — reloads automatically when back in view</div>';
+    wrap.dataset.loaded = "0";
+  }
+
+  const frameObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        loadFrame(entry.target);
+      } else {
+        unloadFrame(entry.target);
+      }
+    });
+  }, { rootMargin: "300px 0px" });
+
   files.forEach((file, i) => {
     const url = new URL(file, document.baseURI).href;
     const defaultHeight = 600;
@@ -192,8 +236,8 @@
         <span class="name">${file}</span>
         <a href="${file}" target="_blank" rel="noopener">Open standalone ↗</a>
       </div>
-      <div class="frame-wrap">
-        <iframe src="${file}" title="${file}" loading="lazy"></iframe>
+      <div class="frame-wrap" data-file="${file}" data-loaded="0">
+        <div class="placeholder">Scroll into view to load…</div>
       </div>
       <div class="controls">
         <label>Height <input type="number" class="height-input" value="${defaultHeight}" min="100" step="50"></label>
@@ -204,6 +248,7 @@
     `;
 
     grid.appendChild(card);
+    frameObserver.observe(card.querySelector(".frame-wrap"));
 
     const btn = card.querySelector(".copy-btn");
     const heightInput = card.querySelector(".height-input");
