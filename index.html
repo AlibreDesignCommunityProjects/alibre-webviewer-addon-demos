@@ -51,6 +51,33 @@
   header p.credit a:hover {
     text-decoration: underline;
   }
+  header p.sources {
+    margin-top: 10px;
+    font-size: 13px;
+  }
+  header p.sources a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  header p.sources a:hover {
+    text-decoration: underline;
+  }
+  header ul.sources-list {
+    margin: 6px 0 0;
+    padding-left: 18px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  header ul.sources-list li {
+    margin: 2px 0;
+  }
+  header ul.sources-list a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  header ul.sources-list a:hover {
+    text-decoration: underline;
+  }
   .grid {
     max-width: 1100px;
     margin: 0 auto;
@@ -156,6 +183,12 @@
 <header>
   <h1>alibre-webviewer-addon iframe/embed tester</h1>
   <p class="credit">Part of <a href="https://github.com/AlibreDesignCommunityProjects/alibre-webviewer-addon" target="_blank" rel="noopener">alibre-webviewer-addon</a>. By <a href="https://github.com/stephensmitchell" target="_blank" rel="noopener">Stephen S. Mitchell</a>.</p>
+  <p class="sources">3D model file sources:</p>
+  <ul class="sources-list">
+    <li><a href="https://www.alibre.com/sample-models/" target="_blank" rel="noopener">alibre.com/sample-models</a></li>
+    <li><a href="https://www.alibre.com/forum/index.php" target="_blank" rel="noopener">alibre.com/forum</a></li>
+    <li><a href="https://www.alibre.com/forum/index.php?threads/trying-to-understand-extrude-error-message.26948/" target="_blank" rel="noopener">Trying to understand extrude error message (forum thread)</a></li>
+  </ul>
 </header>
 
 <div class="grid" id="grid"></div>
