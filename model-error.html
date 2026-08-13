@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chamfer Vertex-bug-evidence (1)</title>
+<style>
+html,body{margin:0;height:100%;overflow:hidden;background:#000000;font-family:Segoe UI,Arial,sans-serif;}
+model-viewer{width:100%;height:100%;display:block;background:#000000;}
+#label{position:fixed;left:12px;bottom:10px;color:#cfd3da;font-size:12px;opacity:.75;user-select:none;}
+#dl-glb{position:fixed;right:12px;bottom:10px;padding:6px 10px;font:12px Segoe UI,Arial,sans-serif;color:#cfd3da;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);border-radius:4px;cursor:pointer;}
+#dl-glb:hover{background:rgba(255,255,255,.18);}
+#dl-glb:disabled{opacity:.5;cursor:default;}
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+} }
+</script>
+<script type="module" src="https://unpkg.com/@google/model-viewer@4.0.0/dist/model-viewer.min.js"></script>
+</head>
+<body>
+<script id="model-data" type="application/octet-stream">IyBGaWxlIHByb2R1Y2VkIGJ5IFRlY2hTb2Z0M0QgSE9PUFMgRXhjaGFuZ2UgdjI2LjEuMQ0KDQptdGxsaWIgZXhwb3J0LTcyNEIzMzBDLTE4NjUtNDNCMi1BNTlCLTQ2OUM1MDkwQjI4Mi5tdGwNCg0KIyAzMCB2ZXJ0ZXggcG9zaXRpb25zDQp2IDU1LjIyMjkzMDkgNDMuNTI4ODM5MSAyMS45MDAwMDE1DQp2IDYwLjIyMjkzMDkgMzguNTI4ODM5MSAyMS45MDAwMDE1DQp2IDYwLjIyMjkzMDkgNDMuNTI4ODM5MSAyNi45MDAwMDE1DQp2IDQyLjc4ODc5MTcgMjcuOTA0MDgxMyAxOS44OTk5OTk2DQp2IDYwLjIyMjkzMDkgMjcuOTA0MDgxMyA4DQp2IDQ0Ljc4ODc4NzggMjcuOTA0MDgxMyAyMS45MDAwMDE1DQp2IDU3LjIyMjkzMDkgMjcuOTA0MDgxMyA1DQp2IDQyLjc4ODc5MTcgMjcuOTA0MDgxMyA1DQp2IDYwLjIyMjkzMDkgMjcuOTA0MDgxMyAyMS45MDAwMDE1DQp2IDAuMDE5NjQwOTIyNSA0My41Mjg4MzkxIDUNCnYgMzIuNzg4NzkxNyA0My41Mjg4MzkxIDUNCnYgNDIuNzg4NzkxNyA0My41Mjg4MzkxIDE1DQp2IDQyLjc4ODc5MTcgNDMuNTI4ODM5MSAyMS45MDAwMDE1DQp2IDAuMDE5NjQwOTIyNSA0My41Mjg4MzkxIDM5LjI5OTk5OTINCnYgNjAuMjIyOTMwOSA0My41Mjg4MzkxIDM5LjI5OTk5OTINCnYgNjAuMjIyOTMwOSAyNC45MDQwODEzIDUNCnYgNjAuMjIyOTMwOSAtMS41NTY3OTY3NWUtMTQgNQ0KdiA2MC4yMjI5MzA5IC0xLjU1Njc5Njc1ZS0xNCAzOS4yOTk5OTkyDQp2IDQyLjc4ODc5MTcgMjkuOTA0MDgxMyAyMS45MDAwMDE1DQp2IDY1LjIyMjkzMDkgNDguNTI4ODM5MSA1DQp2IDY1LjIyMjkzMDkgNDMuNTI4ODM5MSAwDQp2IDYwLjIyMjkzMDkgNDguNTI4ODM5MSAwDQp2IDQyLjc4ODc5MTcgMzMuNTI4ODM5MSA1DQp2IDAuMDE5NjQwOTIyNSAwIDUNCnYgMC4wMTk2NDA5MjI1IDQ4LjUyODgzOTEgMzkuMjk5OTk5Mg0KdiA2NS4yMjI5MzA5IDAgMzkuMjk5OTk5Mg0KdiA2NS4yMjI5MzA5IDQ4LjUyODgzOTEgMzkuMjk5OTk5Mg0KdiAwLjAxOTY0MDkyMjUgMCAwDQp2IDY1LjIyMjkzMDkgMCAwDQp2IDAuMDE5NjQwOTIyNSA0OC41Mjg4MzkxIDANCg0KIyAwIFVWIGNvb3JkaW5hdGVzDQoNCiMgMTAgdmVydGV4IG5vcm1hbHMNCnZuIC01Ljc3MzUwMjM1IC01Ljc3MzUwMjM1IDUuNzczNTAyMzUNCnZuIDAgLTEwIDANCnZuIC0xMCAwIDANCnZuIDAgMCAxMA0Kdm4gNS43NzM1MDIzNSA1Ljc3MzUwMjM1IC01Ljc3MzUwMjM1DQp2biAtMTAgLTYuMjUyODczMTFlLTE0IDANCnZuIC0xMCAtMS44MzM3ODIwN2UtMTUgMA0Kdm4gMTAgMCAwDQp2biAwIDEwIDANCnZuIC0wIC0wIC0xMA0KDQojIE1lc2ggJ0NoYW1mZXIgVmVydGV4LWJ1Zy1ldmlkZW5jZSAoMSknIHdpdGggNDUgZmFjZXMNCmcgQ2hhbWZlciBWZXJ0ZXgtYnVnLWV2aWRlbmNlICgxKQ0KdXNlbXRsIE1hdGVyaWFsXzENCmYgIDEvLzEgMi8vMSAzLy8xDQpmICA0Ly8yIDUvLzIgNi8vMg0KZiAgNy8vMiA0Ly8yIDgvLzINCmYgIDUvLzIgOS8vMiA2Ly8yDQpmICA1Ly8yIDQvLzIgNy8vMg0KZiAgMTAvLzIgMTEvLzIgMTIvLzINCmYgIDEzLy8yIDEwLy8yIDEyLy8yDQpmICAxMC8vMiAxMy8vMiAxNC8vMg0KZiAgMTMvLzIgMS8vMiAzLy8yDQpmICAzLy8yIDE1Ly8yIDEzLy8yDQpmICAxMy8vMiAxNS8vMiAxNC8vMg0KZiAgOS8vMyAzLy8zIDIvLzMNCmYgIDkvLzMgMTUvLzMgMy8vMw0KZiAgMTYvLzMgMTcvLzMgOS8vMw0KZiAgOS8vMyAxOC8vMyAxNS8vMw0KZiAgMTgvLzMgOS8vMyAxNy8vMw0KZiAgMTYvLzMgOS8vMyA1Ly8zDQpmICAxOS8vMSA0Ly8xIDYvLzENCmYgIDEvLzQgMTMvLzQgMTkvLzQNCmYgIDIvLzQgMTkvLzQgNi8vNA0KZiAgMTkvLzQgMi8vNCAxLy80DQpmICAyLy80IDYvLzQgOS8vNA0KZiAgMjAvLzUgMjEvLzUgMjIvLzUNCmYgIDEzLy82IDEyLy82IDE5Ly82DQpmICAxOS8vNiAxMi8vNiAyMy8vNg0KZiAgMjMvLzYgNC8vNiAxOS8vNg0KZiAgNC8vNiAyMy8vNiA4Ly82DQpmICAxMS8vNCAxMC8vNCA4Ly80DQpmICA4Ly80IDEwLy80IDI0Ly80DQpmICAyMy8vNCAxMS8vNCA4Ly80DQpmICAxNy8vNCAxNi8vNCA4Ly80DQpmICA3Ly80IDgvLzQgMTYvLzQNCmYgIDE3Ly80IDgvLzQgMjQvLzQNCmYgIDE1Ly80IDI1Ly80IDE0Ly80DQpmICAxNS8vNCAyNi8vNCAyNy8vNA0KZiAgMjYvLzQgMTUvLzQgMTgvLzQNCmYgIDE1Ly80IDI3Ly80IDI1Ly80DQpmICAyOC8vMiAxNy8vMiAyNC8vMg0KZiAgMTcvLzIgMjgvLzIgMjkvLzINCmYgIDE3Ly8yIDI2Ly8yIDE4Ly8yDQpmICAyNi8vMiAxNy8vMiAyOS8vMg0KZiAgMzAvLzcgMTAvLzcgMjUvLzcNCmYgIDEwLy83IDMwLy83IDI4Ly83DQpmICAyNS8vNyAxMC8vNyAxNC8vNw0KZiAgMjQvLzcgMTAvLzcgMjgvLzcNCg0KIyBNZXNoICdDaGFtZmVyIFZlcnRleC1idWctZXZpZGVuY2UgKDEpJyB3aXRoIDkgZmFjZXMNCmcgQ2hhbWZlciBWZXJ0ZXgtYnVnLWV2aWRlbmNlICgxKQ0KdXNlbXRsIE1hdGVyaWFsXzANCmYgIDI2Ly84IDI5Ly84IDIwLy84DQpmICAyMC8vOCAyNy8vOCAyNi8vOA0KZiAgMjAvLzggMjkvLzggMjEvLzgNCmYgIDI3Ly85IDIwLy85IDI1Ly85DQpmICAzMC8vOSAyNS8vOSAyMC8vOQ0KZiAgMzAvLzkgMjAvLzkgMjIvLzkNCmYgIDIxLy8xMCAyOC8vMTAgMzAvLzEwDQpmICAyMi8vMTAgMjEvLzEwIDMwLy8xMA0KZiAgMjkvLzEwIDI4Ly8xMCAyMS8vMTANCg0K</script>
+<script id="model-mtl" type="application/octet-stream">IyBGaWxlIHByb2R1Y2VkIGJ5IFRlY2hTb2Z0M0QgSE9PUFMgRXhjaGFuZ2UgdjI2LjEuMQ0KDQpuZXdtdGwgTWF0ZXJpYWxfMQ0KS2QgMC42NjE3NjQ2ODEgMC42NjE3NjQ2ODEgMC42NjE3NjQ2ODENCkthIDAuODgyMzUyOTQ4IDAuODgyMzUyOTQ4IDAuODgyMzUyOTQ4DQpLcyAwLjUgMC41IDAuNQ0KS2UgMCAwIDANCk5zIDAuMDc4MTI1DQppbGx1bSAyDQoNCm5ld210bCBNYXRlcmlhbF8wDQpLZCAwLjc1IDAuMjA4ODIzNTMyIDAuMTg1Mjk0MTIyDQpLYSAxIDAuMjc4NDMxMzg2IDAuMjQ3MDU4ODI0DQpLcyAwLjUgMC41IDAuNQ0KS2UgMCAwIDANCmQgMC45OTYwNzg0MzINCk5zIDAuMDc4MTI1DQppbGx1bSAyDQoNCg==</script>
+<model-viewer id="mv" camera-controls touch-action="pan-y" auto-rotate shadow-intensity="1" exposure="1" alt="Chamfer Vertex-bug-evidence (1)"></model-viewer>
+<div id="label">Chamfer Vertex-bug-evidence (1)</div>
+<button id="dl-glb" title="Download this model as a .glb file">Download GLB</button>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFExporter } from 'three/addons/exporters/GLTFExporter.js';
+import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
+let __glbPromise = null;
+window.__toGlb = function() {
+  if (!__glbPromise) __glbPromise = (async () => {
+    const b64 = document.getElementById('model-data').textContent.trim();
+    const bin = atob(b64);
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    let object;
+    const text = new TextDecoder().decode(bytes);
+    const objLoader = new OBJLoader();
+    const mtlB64 = document.getElementById('model-mtl').textContent.trim();
+    const mtlBin = atob(mtlB64);
+    const mtlBytes = new Uint8Array(mtlBin.length);
+    for (let i = 0; i < mtlBin.length; i++) mtlBytes[i] = mtlBin.charCodeAt(i);
+    const mtlText = new TextDecoder().decode(mtlBytes);
+    const materials = new MTLLoader().parse(mtlText, '');
+    materials.preload();
+    objLoader.setMaterials(materials);
+    object = objLoader.parse(text);
+  object.traverse((child) => {
+    if (!child.isMesh) return;
+    const toStandard = (mat) => (mat && mat.isMeshPhongMaterial)
+      ? new THREE.MeshStandardMaterial({ color: mat.color, opacity: mat.opacity, transparent: mat.transparent, side: mat.side, map: mat.map || null })
+      : mat;
+    child.material = Array.isArray(child.material) ? child.material.map(toStandard) : toStandard(child.material);
+  });
+    const exporter = new GLTFExporter();
+    const glb = await new Promise((res, rej) => exporter.parse(object, res, rej, { binary: true }));
+    return new Uint8Array(glb);
+  })();
+  return __glbPromise;
+};
+</script>
+
+<script type="module">
+const glb = await window.__toGlb();
+const blob = new Blob([glb], { type: 'model/gltf-binary' });
+document.getElementById('mv').src = URL.createObjectURL(blob);
+const __dlGlbBtn = document.getElementById('dl-glb');
+__dlGlbBtn.addEventListener('click', async () => {
+  __dlGlbBtn.disabled = true;
+  const __dlGlbLabel = __dlGlbBtn.textContent;
+  __dlGlbBtn.textContent = 'Converting...';
+  try {
+    const glb = await window.__toGlb();
+    const blob = new Blob([glb], { type: 'model/gltf-binary' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Chamfer Vertex-bug-evidence 1.glb';
+    a.click();
+    URL.revokeObjectURL(url);
+  } catch (err) {
+    console.error('GLB export failed', err);
+    alert('GLB export failed: ' + err.message);
+  } finally {
+    __dlGlbBtn.disabled = false;
+    __dlGlbBtn.textContent = __dlGlbLabel;
+  }
+});
+</script>
+</body>
+</html>
